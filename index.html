@@ -142,7 +142,7 @@
 <section id="listen" class="section reveal">
   <h2>Слушать REALLY BASTARD</h2>
   <p class="platforms-label">Треки DOUBLEMIR:</p>
-
+<button id="randomTrack" class="random-btn">🔀 Случайный трек</button>
   <div class="tracklist">
     <div class="track">
       <p class="track-title">DOUBLEMIR – Наебал <span class="explicit">E</span></p>
@@ -544,6 +544,41 @@ document.querySelectorAll('.track').forEach(track => {
     }, 50);
   }
 })();
+/* ---------- СЛУЧАЙНЫЙ ТРЕК ---------- */
+const randomBtn = document.getElementById('randomTrack');
+if (randomBtn) {
+  randomBtn.addEventListener('click', () => {
+    const tracks = document.querySelectorAll('.track');
+    if (!tracks.length) return;
+
+    // выбираем случайный
+    const random = tracks[Math.floor(Math.random() * tracks.length)];
+
+    // скроллим к нему
+    random.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // пауза всех остальных
+    document.querySelectorAll('audio').forEach(a => {
+      a.pause();
+      a.currentTime = 0;
+    });
+
+    // запускаем через 600мс (пока идёт скролл)
+    setTimeout(() => {
+      const audio = random.querySelector('audio');
+      if (audio) {
+        audio.play().catch(() => {});
+      }
+
+      // подсветить трек на секунду
+      random.style.transition = 'box-shadow 0.4s, background 0.4s';
+      random.style.boxShadow = '0 0 40px rgba(200,255,0,0.4)';
+      setTimeout(() => {
+        random.style.boxShadow = '';
+      }, 1500);
+    }, 600);
+  });
+}
 </script>
 </body>
 </html>
