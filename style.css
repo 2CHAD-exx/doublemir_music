@@ -908,4 +908,21 @@ html {
 .track-plays::before {
   content: "▶ ";
   opacity: 0.6;
+}.track-plays {
+  font-size: 0.78rem;
+  color: #c8ff00;
+  opacity: 0.7;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+  min-height: 0;
+  line-height: 1.2;
+}
+
+.track-plays:empty {
+  display: none;
+}
+
+.track-plays::before {
+  content: "▶ ";
+  opacity: 0.6;
 }
