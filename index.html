@@ -461,8 +461,16 @@ document.querySelectorAll('.track').forEach(track => {
     setTimeout(() => {
       const rect = bigTitle.getBoundingClientRect();
       const isMobile = window.innerWidth < 700;
+
+      // центр надписи
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
+
+      // прямоугольная зона вокруг надписи — где могут появляться GOAT
+      const zoneW = isMobile ? 320 : 700;    // ширина зоны
+      const zoneH = isMobile ? 260 : 420;    // высота зоны
+      const halfW = zoneW / 2;
+      const halfH = zoneH / 2;
 
       const total = 12;
 
@@ -470,45 +478,43 @@ document.querySelectorAll('.track').forEach(track => {
       overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
       document.body.appendChild(overlay);
 
-      // создаём массив позиций
-      const items = [];
+      // создаём случайные позиции
+      const positions = [];
       for (let i = 0; i < total; i++) {
-        const angle = Math.random() * Math.PI * 2;            // ← случайный угол
-        const radiusX = (isMobile ? 130 : 240) + Math.random() * (isMobile ? 80 : 200);  // ← случайный радиус
-        const radiusY = (isMobile ? 80  : 140) + Math.random() * (isMobile ? 60 : 140);
-        const x = cx + Math.cos(angle) * radiusX;
-        const y = cy + Math.sin(angle) * radiusY;
-
-        items.push({ x, y });
+        // случайная точка в прямоугольнике
+        const x = cx - halfW + Math.random() * zoneW;
+        const y = cy - halfH + Math.random() * zoneH;
+        positions.push({ x, y });
       }
 
       // перемешиваем порядок появления
-      items.sort(() => Math.random() - 0.5);
+      positions.sort(() => Math.random() - 0.5);
 
-      items.forEach((pos, i) => {
+      positions.forEach((pos, i) => {
         const el = document.createElement('div');
         el.textContent = 'GOAT';
         el.style.position = 'fixed';
         el.style.left = pos.x + 'px';
         el.style.top = pos.y + 'px';
         el.style.fontFamily = "'Unbounded', sans-serif";
-        el.style.fontSize = isMobile ? '1.3rem' : '2.2rem';   // ← крупнее
+        el.style.fontSize = isMobile ? '1.6rem' : '2.8rem';    // ← крупнее
         el.style.fontWeight = '900';
-        el.style.letterSpacing = '3px';
+        el.style.letterSpacing = '4px';
         el.style.color = '#c8ff00';
-        el.style.textShadow = '0 0 20px rgba(200,255,0,0.9), 0 0 40px rgba(200,255,0,0.5)';
+        el.style.textShadow = '0 0 25px rgba(200,255,0,0.95), 0 0 50px rgba(200,255,0,0.6)';
         el.style.opacity = '0';
-        el.style.transform = 'translate(-50%, -50%) scale(0.3) rotate(' + (Math.random() * 60 - 30) + 'deg)';
-        el.style.transition = 'opacity 0.4s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
+        el.style.transform = 'translate(-50%, -50%) scale(0.2) rotate(' + (Math.random() * 80 - 40) + 'deg)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.8s cubic-bezier(0.34,1.56,0.64,1)';
         el.style.whiteSpace = 'nowrap';
         el.style.pointerEvents = 'none';
+        el.style.zIndex = '999999';
 
         overlay.appendChild(el);
 
         setTimeout(() => {
           el.style.opacity = '1';
-          el.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 60 - 30) + 'deg)';
-        }, i * 60 + Math.random() * 120);   // ← случайная задержка
+          el.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 80 - 40) + 'deg)';
+        }, i * 70 + Math.random() * 100);
       });
 
       setTimeout(() => {
