@@ -815,3 +815,18 @@ html {
   }
 }
 
+/* ---------- АДАПТАЦИЯ ЗАГОЛОВКА DOUBLEMIR ПОД ТЕЛЕФОН ---------- */
+@media (max-width: 700px) {
+  .animated-title {
+    white-space: nowrap;
+    font-size: clamp(1.8rem, 11vw, 4rem);
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 380px) {
+  .animated-title {
+    font-size: 9.5vw;
+    letter-spacing: 0.5px;
+  }
+}
