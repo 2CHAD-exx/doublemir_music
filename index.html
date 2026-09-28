@@ -427,6 +427,71 @@ document.querySelectorAll('.track').forEach(track => {
     counter.textContent = 'Вы слушали ' + current + ' раз';
   });
 });
+/* ---------- ПАСХАЛКА: 5 КЛИКОВ ПО ЛОГОТИПУ ---------- */
+(function () {
+  const logo = document.querySelector('.logo');
+  if (!logo) return;
+
+  const messages = ['LEGEND', 'GOAT'];
+
+  let clicks = 0;
+  let timer = null;
+
+  logo.style.cursor = 'pointer';
+  logo.style.userSelect = 'none';
+
+  logo.addEventListener('click', () => {
+    clicks++;
+    clearTimeout(timer);
+    timer = setTimeout(() => { clicks = 0; }, 3000);
+    if (clicks === 5) {
+      clicks = 0;
+      clearTimeout(timer);
+      triggerEasterEgg();
+    }
+  });
+
+  function triggerEasterEgg() {
+    document.body.style.transition = 'filter 0.4s ease';
+    document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+
+    const msg = document.createElement('div');
+    msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+    msg.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: #c8ff00;
+      color: #0a0a0a;
+      padding: 24px 48px;
+      border-radius: 16px;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      font-family: 'Unbounded', sans-serif;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      text-transform: uppercase;
+    `;
+    document.body.appendChild(msg);
+
+    requestAnimationFrame(() => {
+      msg.style.opacity = '1';
+      msg.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    setTimeout(() => {
+      document.body.style.filter = '';
+      msg.style.opacity = '0';
+      msg.style.transform = 'translate(-50%, -50%) scale(0.8)';
+      setTimeout(() => msg.remove(), 400);
+    }, 1500);
+  }
+})();
 </script>
 </body>
 </html>
