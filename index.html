@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+<meta name="rating" content="mature">
+<meta itemprop="minAge" content="18">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOUBLEMIR — официальный сайт</title>
+  <meta name="description" content="DOUBLEMIR (Тимур Краснов) — российский рэп-исполнитель. Биография, дискография, музыка, контакты.">
+  <meta property="og:title" content="DOUBLEMIR">
+  <meta property="og:description" content="Официальный сайт артиста DOUBLEMIR. Слушать музыку, следить за релизами.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="scroll-progress"></div> 
+<!-- ВОЗРАСТНОЕ ПРЕДУПРЕЖДЕНИЕ -->
+<div class="age-gate" id="ageGate">
+
+  <!-- ЭКРАН 1: Вопрос -->
+  <div class="age-gate-box" id="ageQuestion">
+    <div class="age-gate-mark">18+</div>
+    <h2>Вам есть 18 лет?</h2>
+    <p>Сайт содержит нецензурную лексику и предназначен для лиц старше 18 лет.</p>
+    <div class="age-gate-buttons">
+      <button class="age-gate-yes" onclick="ageConfirm()">Да, мне есть 18</button>
+      <button class="age-gate-no" onclick="ageDeny()">Нет, мне меньше 18</button>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 2: Отказ -->
+  <div class="age-gate-box age-gate-denied" id="ageDenied" style="display: none;">
+    <div class="age-gate-mark age-gate-mark-denied">18+</div>
+    <h2>Доступ запрещён</h2>
+    <p>К сожалению, доступ к сайту разрешён строго с 18 лет.</p>
+    <div class="age-gate-buttons">
+      <button class="age-gate-back" onclick="ageBack()">Я ошибся, мне есть 18</button>
+      <a class="age-gate-link" href="https://www.google.com">Покинуть сайт</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+
+  <!-- НАВИГАЦИЯ -->
+<header class="nav">
+  <div class="logo">DOUBLEMIR</div>
+  <nav>
+    <a href="#about">Обо мне</a>
+    <a href="#discography">Дискография</a>
+    <a href="#listen">Слушать</a>
+    <a href="#contact">Контакты</a>
+    <span class="age-mark-nav">18+</span>
+  </nav>
+</header>
+  <!-- ГЛАВНЫЙ ЭКРАН -->
+  <section class="hero">
+    <div class="hero-content">
+     <h1 class="animated-title" data-text="DOUBLEMIR">
+  <span style="--i:0">D</span>
+  <span style="--i:1">O</span>
+  <span style="--i:2">U</span>
+  <span style="--i:3">B</span>
+  <span style="--i:4">L</span>
+  <span style="--i:5">E</span>
+  <span style="--i:6">M</span>
+  <span style="--i:7">I</span>
+  <span style="--i:8">R</span>
+</h1>
+      <p>Российский рэп-исполнитель</p>
+      <a href="#listen" class="btn">Слушать</a>
+    </div>
+  </section>
+<!-- БЕГУЩАЯ СТРОКА -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+    <span>DOUBLEMIR · RAP · MUSIC · </span>
+  </div>
+</div>
+
+  <!-- ОБО МНЕ / БИОГРАФИЯ -->
+  <section id="about" class="section reveal">
+    <h2>Обо мне</h2>
+    <div class="about">
+      <img src="img/1000x1000.jpg" alt="DOUBLEMIR — фото артиста">
+      <div class="about-text">
+        <p><strong>DOUBLEMIR</strong> (настоящее имя — Тимур Владимирович Краснов; род. 24 июля 2008 года) — российский хип-хоп-исполнитель.</p>
+        <p>Тимур Краснов родился 24 июля 2008 года. Свою музыкальную карьеру он начал под псевдонимом DOUBLEMIR. Свои релизы артист выпускает на основных стриминговых площадках, включая Яндекс Музыку, VK Музыку, Spotify, Apple Music, Kion Музыку и Deezer.</p>
+        <p>13 февраля 2026 года состоялся релиз дебютного альбома «17», выполненного в жанре хип-хоп/рэп. Название пластинки отсылает к возрасту исполнителя на момент выхода релиза. В записи альбома приняли участие такие артисты, как nebedolaga, SAKFAER, f1ckit, de sent Bennett, vasyapalkiin, TOMMYTEMA, DJ ЦЕПЬ, Падший ангел и weexymep.</p>
+        <p>3 июля 2026 года DOUBLEMIR выпустил сольный мини-альбом (EP) «Время покажет!!!», состоящий из пяти треков: «Девочка мечты» (Intro), «Мне похуй», «Pull up», «Егермейстер» и «Доля правды».</p>
+        <p>В дискографию исполнителя также входят отдельные синглы, выпущенные в 2025-2026 г.г.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ДИСКОГРАФИЯ -->
+  <section id="discography" class="section dark reveal">
+  <h2>Дискография</h2>
+  <div class="albums">
+
+    <div class="album-card">
+      <div class="album-cover">
+        <img src="img/m1000x1000 (5).jpg" alt="Обложка альбома «17» DOUBLEMIR">
+      </div>
+      <h3>«17»</h3>
+      <p class="meta">Альбом · 13 февраля 2026</p>
+      <p>Дебютный альбом в жанре хип-хоп/рэп. Фиты: nebedolaga, SAKFAER, f1ckit, de sent Bennett, vasyapalkiin, TOMMYTEMA, DJ ЦЕПЬ, Падший ангел, weexymep.</p>
+    </div>
+
+    <div class="album-card">
+      <div class="album-cover">
+        <img src="img/m1000x1000 (1).jpg" alt="Обложка EP «Время покажет!!!» DOUBLEMIR">
+      </div>
+      <h3>«Время покажет!!!»</h3>
+      <p class="meta">EP · 3 июля 2026</p>
+      <p>Сольный мини-альбом из 5 треков: «Девочка мечты» (Intro), «Мне похуй», «Pull up», «Егермейстер», «Доля правды».</p>
+    </div>
+
+    <div class="album-card">
+      <div class="album-cover">
+        <img src="img/54452604-b8d2-4164-8fcb-5f3a66c9eb6f.jpg" alt="Синглы DOUBLEMIR">
+      </div>
+      <h3>REALLY BASTARD</h3>
+      <p class="meta">SoundCloud EP · 25 сентября 2026</p>
+      <p>Сольный мини-альбом, выпущенный только на SoundCloud.</p>
+    </div>
+
+  </div>
+</section>
+<!-- СЛУШАТЬ / REALLY BASTARD -->
+<section id="listen" class="section reveal">
+  <h2>Слушать REALLY BASTARD</h2>
+  <p class="platforms-label">Треки DOUBLEMIR:</p>
+
+  <div class="tracklist">
+    <div class="track">
+      <p class="track-title">DOUBLEMIR – Наебал <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR – Наебал.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR – Наебал.mp3" download="DOUBLEMIR – Наебал.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR – Пантера <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR – Пантера.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR – Пантера.mp3" download="DOUBLEMIR – Пантера.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR – Похуй ваще <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR – Похуй ваще.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR – Похуй ваще.mp3" download="DOUBLEMIR – Похуй ваще.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR – Секс по телефону <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR – Секс по телефону.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR – Секс по телефону.mp3" download="DOUBLEMIR – Секс по телефону.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR – Bad Star <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR – Bad Star.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR – Bad Star.mp3" download="DOUBLEMIR – Bad Star.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+  </div>
+</section>
+
+<!-- СЛУШАТЬ / СИНГЛЫ -->
+<section id="singles" class="section reveal">
+  <h2>Слушать синглы</h2>
+  <p class="platforms-label">Треки DOUBLEMIR:</p>
+
+  <div class="tracklist">
+    <div class="track">
+      <p class="track-title">YMIP feat. DOUBLEMIR — only SEX <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/YMIP feat. DOUBLEMIR — only SEX.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/YMIP feat. DOUBLEMIR — only SEX.mp3" download="DOUBLEMIR - only SEX.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">W double, DOUBLEMIR — clean girl <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/W double, DOUBLEMIR — clean girl.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/W double, DOUBLEMIR — clean girl.mp3" download="DOUBLEMIR - clean girl.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR, PLOHOYTARASIK — PROJECT X <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR, PLOHOYTARASIK — PROJECT X.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR, PLOHOYTARASIK — PROJECT X.mp3" download="DOUBLEMIR - PROJECT X.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR feat. stepanenko — Взгляды под луной <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR feat. stepanenko — Взгляды под луной.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR feat. stepanenko — Взгляды под луной.mp3" download="DOUBLEMIR - Взгляды под луной.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — Лабубу <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — Лабубу.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — Лабубу.mp3" download="DOUBLEMIR - Лабубу.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — Жизнь моя <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — Жизнь моя.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — Жизнь моя.mp3" download="DOUBLEMIR - Жизнь моя.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — Будешь со мной</p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — Будешь со мной.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — Будешь со мной.mp3" download="DOUBLEMIR - Будешь со мной.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — Боль <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — Боль.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — Боль.mp3" download="DOUBLEMIR - Боль.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — Блондинка <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — Блондинка.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — Блондинка.mp3" download="DOUBLEMIR - Блондинка.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — АйАйАй <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — АЙ АЙ АЙ.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — АЙ АЙ АЙ.mp3" download="DOUBLEMIR — АЙ АЙ АЙ.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+    <div class="track">
+      <p class="track-title">DOUBLEMIR — 2026 <span class="explicit">E</span></p>
+      <div class="eq"><span></span><span></span><span></span><span></span></div>
+      <audio controls preload="none"><source src="audio1/DOUBLEMIR — 2026.mp3" type="audio/mpeg"></audio>
+      <a href="audio1/DOUBLEMIR — 2026.mp3" download="DOUBLEMIR - 2026.mp3" class="download-btn">⬇ Скачать MP3</a>
+    </div>
+  </div>
+</section>
+    <!-- СТРИМИНГОВЫЕ ПЛАТФОРМЫ -->
+   <p class="platforms-label">Слушайте DOUBLEMIR на площадках:</p>
+<div class="platforms">
+  <a href="https://music.yandex.ru/artist/23892391" target="_blank" rel="noopener" class="platform">Яндекс Музыка</a>
+ <a href="https://vk.ru/artist/doublemir" target="_blank" rel="noopener" class="platform">VK Музыка</a>
+  <a href="https://open.spotify.com/artist/6QOhvpdUcvgJDtN43TU01j?si=pQw4crt9RiyB2yf0tRZgUw" target="_blank" rel="noopener" class="platform">Spotify</a>
+  <a href="https://music.apple.com/us/artist/doublemir/1817949848" target="_blank" rel="noopener" class="platform">Apple Music</a>
+  <a href="https://mts-music-spo.onelink.me/sKFX/ce7fkwe7" target="_blank" rel="noopener" class="platform">Kion Музыка</a>
+  <a href="https://www.deezer.com/ru/artist/328396851" target="_blank" rel="noopener" class="platform">Deezer</a>
+  <a href="https://on.soundcloud.com/bdGn3wvUqmsUhd1IBZ" target="_blank" rel="noopener" class="platform">SoundCloud</a>
+</div>
+
+   <!-- ВСТРОЕННЫЙ ПЛЕЕР ЯНДЕКС МУЗЫКИ -->
+<div class="player">
+  <p class="player-label">DOUBLEMIR — плейлист на Яндекс Музыке</p>
+  <iframe
+    frameborder="0"
+    allow="clipboard-write"
+    style="border:none;width:100%;height:556px;border-radius:14px;"
+    width="100%"
+    height="556"
+    src="https://music.yandex.ru/iframe/playlist/PolinaKluch227/1015">
+    Слушайте <a href="https://music.yandex.ru/playlists/4b797e54-d6e9-4b65-b0c1-8a63eb275403?utm_source=web&utm_medium=copy_link">Doublemir</a>
+    — <a href="https://music.yandex.ru/users/PolinaKluch227">PolinaKluch227</a> на Яндекс Музыке
+  </iframe>
+</div>
+
+  <!-- КОНТАКТЫ / СОЦСЕТИ -->
+  <footer id="contact" class="section dark reveal">
+<p class="age-mark">18+</p>
+    <h2>Контакты и соцсети</h2>
+    <p class="contact-text">По вопросам сотрудничества и букинга — пишите в соцсети.</p>
+    <div class="socials">
+      <a href="https://t.me/doublemir" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://vk.ru/doublemir"target="_blank" rel="noopener">VK</a>
+      <a href="https://www.instagram.com/doublemir_official?stkn=MW9leXB6MXhpczF5Yw==" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@doublemir1?_r=1&_t=ZS-9A5dl0Q5udB" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://youtube.com/@doublemir?si=fSWliAvfacatgOa6" target="_blank" rel="noopener">YouTube</a>
+
+    </div>
+    <p class="copy">© 2026 DOUBLEMIR. Все права защищены.</p>
+  </footer>
+ <button id="toTop" aria-label="Наверх">↑</button>
+<script>
+  const players = document.querySelectorAll('audio');
+  players.forEach(player => {
+    player.addEventListener('play', () => {
+      players.forEach(other => {
+        if (other !== player) {
+          other.pause();
+        }
+      });
+    });
+  });
+</script>
+<script>
+  const revealElements = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+
+/* ---------- ВОЗРАСТНОЕ ПРЕДУПРЕЖДЕНИЕ ---------- */
+(function () {
+  const gate = document.getElementById('ageGate');
+  if (!gate) return;
+
+  if (localStorage.getItem('ageConfirmed') === 'yes') {
+    gate.classList.add('hide');
+    document.body.style.overflow = '';
+  } else {
+    document.body.style.overflow = 'hidden';
+  }
+})();
+
+function ageConfirm() {
+  localStorage.setItem('ageConfirmed', 'yes');
+  document.getElementById('ageGate').classList.add('hide');
+  document.body.style.overflow = '';
+}
+
+function ageDeny() {
+  document.getElementById('ageQuestion').style.display = 'none';
+  document.getElementById('ageDenied').style.display = '';
+}
+
+function ageBack() {
+  document.getElementById('ageDenied').style.display = 'none';
+  document.getElementById('ageQuestion').style.display = '';
+}
+
+/* ---------- ПОЛОСА ПРОГРЕССА ---------- */
+const progressBar = document.querySelector('.scroll-progress');
+if (progressBar) {
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+    progressBar.style.width = p + '%';
+  });
+}
+
+/* ---------- КНОПКА «НАВЕРХ» ---------- */
+const toTop = document.getElementById('toTop');
+if (toTop) {
+  window.addEventListener('scroll', () => {
+    toTop.classList.toggle('show', window.scrollY > 500);
+  });
+  toTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+/* ---------- ЭКВАЛАЙЗЕР У ИГРАЮЩЕГО ТРЕКА ---------- */
+document.querySelectorAll('.track').forEach(track => {
+  const audio = track.querySelector('audio');
+  if (!audio) return;
+
+  audio.addEventListener('play', () => {
+    document.querySelectorAll('.track.playing').forEach(t => t.classList.remove('playing'));
+    track.classList.add('playing');
+  });
+
+  audio.addEventListener('pause', () => {
+    track.classList.remove('playing');
+  });
+
+  audio.addEventListener('ended', () => {
+    track.classList.remove('playing');
+  });
+});
+</script>
+</body>
+</html>
