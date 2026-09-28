@@ -845,3 +845,41 @@ html {
     letter-spacing: 0.5px;
   }
 }
+/* ---------- ЖЁСТКАЯ АДАПТАЦИЯ ЗАГОЛОВКА ---------- */
+@media (max-width: 700px) {
+  .hero,
+  .hero-content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    overflow: hidden;
+  }
+
+  .animated-title {
+    font-size: 8.5vw !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    max-width: 100%;
+    display: block;
+    text-align: center;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .animated-title span {
+    font-size: inherit !important;
+    letter-spacing: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline !important;
+  }
+
+  .hero-content p {
+    font-size: 0.85rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .animated-title {
+    font-size: 8vw !important;
+  }
+}
