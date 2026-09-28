@@ -450,25 +450,68 @@ document.querySelectorAll('.track').forEach(track => {
   });
 
   function triggerEasterEgg() {
+    // инверсия сайта
     document.body.style.transition = 'filter 0.4s ease';
     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
 
-    const goat = document.createElement('div');
-    goat.textContent = 'GOAT';
-    goat.style.cssText = "position:fixed;top:8%;left:50%;transform:translateX(-50%) rotate(-8deg) scale(0.6);font-family:'Unbounded',sans-serif;font-size:clamp(3rem,14vw,9rem);font-weight:900;letter-spacing:8px;color:#c8ff00;text-shadow:0 0 30px rgba(200,255,0,0.8),0 0 60px rgba(200,255,0,0.4);z-index:999999;pointer-events:none;opacity:0;transition:opacity 0.5s ease,transform 0.7s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap;";
-    document.body.appendChild(goat);
+    // находим большую надпись DOUBLEMIR на главном экране
+    const bigTitle = document.querySelector('.animated-title');
+    if (!bigTitle) return;
 
-    requestAnimationFrame(() => {
-      goat.style.opacity = '1';
-      goat.style.transform = 'translateX(-50%) rotate(-8deg) scale(1)';
+    const rect = bigTitle.getBoundingClientRect();
+    const isMobile = window.innerWidth < 700;
+
+    // позиции вокруг большой надписи (в процентах от её размеров)
+    const words = [
+      { text: 'GOAT', top: -30, left: -20,  size: 1.6, rotate: -15 },
+      { text: 'GOAT', top: 60,  left: -40,  size: 1.3, rotate: -8  },
+      { text: 'GOAT', top: -40, left: 100,  size: 1.4, rotate: 12  },
+      { text: 'GOAT', top: 70,  left: 110,  size: 1.7, rotate: 18  },
+      { text: 'GOAT', top: 20,  left: -80,  size: 1.2, rotate: -22 }
+    ];
+
+    // контейнер поверх всего
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
+    document.body.appendChild(overlay);
+
+    words.forEach((w, i) => {
+      const el = document.createElement('div');
+      el.textContent = w.text;
+
+      // размер шрифта: на телефоне меньше
+      const baseSize = isMobile ? w.size * 0.7 : w.size;
+      const fontSize = `clamp(${baseSize * 1}rem, ${baseSize * 4}vw, ${baseSize * 4}rem)`;
+
+      el.style.position = 'absolute';
+      el.style.top = (rect.top + w.top) + 'px';
+      el.style.left = (rect.left + w.left + rect.width / 2) + 'px';
+      el.style.fontFamily = "'Unbounded', sans-serif";
+      el.style.fontSize = fontSize;
+      el.style.fontWeight = '900';
+      el.style.letterSpacing = isMobile ? '1px' : '4px';
+      el.style.color = '#c8ff00';
+      el.style.textShadow = '0 0 20px rgba(200,255,0,0.9), 0 0 50px rgba(200,255,0,0.5)';
+      el.style.opacity = '0';
+      el.style.transform = `translate(-50%, -50%) rotate(${w.rotate}deg) scale(0.4)`;
+      el.style.transition = 'opacity 0.4s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+      el.style.whiteSpace = 'nowrap';
+      el.style.pointerEvents = 'none';
+
+      overlay.appendChild(el);
+
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = `translate(-50%, -50%) rotate(${w.rotate}deg) scale(1)`;
+      }, i * 120);
     });
 
     setTimeout(() => {
       document.body.style.filter = '';
-      goat.style.opacity = '0';
-      goat.style.transform = 'translateX(-50%) rotate(-8deg) scale(1.1)';
-      setTimeout(() => goat.remove(), 500);
-    }, 2000);
+      overlay.style.transition = 'opacity 0.5s';
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 500);
+    }, 2500);
   }
 })();
 </script>
