@@ -453,46 +453,46 @@ document.querySelectorAll('.track').forEach(track => {
     document.body.style.transition = 'filter 0.4s ease';
     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
 
-    const bigTitle = document.querySelector('.animated-title');
-    if (!bigTitle) return;
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
 
-    bigTitle.scrollIntoView({ behavior: 'instant', block: 'center' });
+    hero.scrollIntoView({ behavior: 'instant', block: 'start' });
 
     setTimeout(() => {
-      const rect = bigTitle.getBoundingClientRect();
+      const heroRect = hero.getBoundingClientRect();
       const isMobile = window.innerWidth < 700;
 
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
+      // используем всю ширину и высоту главного экрана
+      const zoneLeft   = heroRect.left;
+      const zoneRight  = heroRect.right;
+      const zoneTop    = heroRect.top;
+      const zoneBottom = heroRect.bottom;
+      const zoneW = zoneRight - zoneLeft;
+      const zoneH = zoneBottom - zoneTop;
 
-      // размеры зоны
-      const zoneW = isMobile ? 340 : 800;
-      const zoneH = isMobile ? 300 : 480;
-      const halfW = zoneW / 2;
-      const halfH = zoneH / 2;
+      // размер надписи и её примерные габариты
+      const fontSize = isMobile ? 22 : 40;
+      const itemW = fontSize * 3.2;
+      const itemH = fontSize * 1.4;
+      const pad = 14;
 
-      // размер надписи (примерный, в пикселях)
-      const fontSize = isMobile ? 24 : 42;   // 1.6rem и 2.8rem примерно
-      const itemW = fontSize * 3.2;           // ширина надписи GOAT
-      const itemH = fontSize * 1.4;           // высота
-      const pad = 12;                          // отступ между надписями
+      const total = isMobile ? 8 : 16;
 
-      const total = 12;
       const placed = [];
 
       const overlay = document.createElement('div');
       overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
       document.body.appendChild(overlay);
 
-      // ищем позиции без пересечений
       let attempts = 0;
-      while (placed.length < total && attempts < 500) {
+      while (placed.length < total && attempts < 800) {
         attempts++;
 
-        const x = cx - halfW + Math.random() * zoneW;
-        const y = cy - halfH + Math.random() * zoneH;
+        // случайная точка по всей площади главного экрана
+        const x = zoneLeft + itemW / 2 + Math.random() * (zoneW - itemW);
+        const y = zoneTop  + itemH / 2 + Math.random() * (zoneH - itemH);
 
-        // проверяем коллизию с уже размещёнными
+        // проверка коллизии
         let collision = false;
         for (const p of placed) {
           if (Math.abs(x - p.x) < itemW + pad &&
@@ -502,9 +502,7 @@ document.querySelectorAll('.track').forEach(track => {
           }
         }
 
-        if (!collision) {
-          placed.push({ x, y });
-        }
+        if (!collision) placed.push({ x, y });
       }
 
       // перемешиваем порядок появления
@@ -534,7 +532,7 @@ document.querySelectorAll('.track').forEach(track => {
         setTimeout(() => {
           el.style.opacity = '1';
           el.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 80 - 40) + 'deg)';
-        }, i * 70 + Math.random() * 100);
+        }, i * 80 + Math.random() * 120);
       });
 
       setTimeout(() => {
