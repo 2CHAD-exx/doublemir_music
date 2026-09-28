@@ -454,14 +454,16 @@ document.querySelectorAll('.track').forEach(track => {
     document.body.style.transition = 'filter 0.4s ease';
     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
 
-    // проверяем, телефон это или компьютер
+    // определяем мобильное устройство
     const isMobile = window.innerWidth < 700;
-    const size = isMobile ? '16vw' : 'clamp(3rem, 14vw, 9rem)';
+
+    // параметры для ПК и телефона
+    const size = isMobile ? '16vw' : '12vw';
     const letterSpacing = isMobile ? '1px' : '8px';
     const tilt = isMobile ? '-4deg' : '-8deg';
-    const topPos = isMobile ? '20%' : '8%';
+    const topPos = isMobile ? '20%' : '15%';
 
-    // надпись GOAT вверху по диагонали
+    // надпись GOAT
     const goat = document.createElement('div');
     goat.textContent = 'GOAT';
     goat.style.position = 'fixed';
