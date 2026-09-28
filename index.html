@@ -454,45 +454,43 @@ document.querySelectorAll('.track').forEach(track => {
     document.body.style.transition = 'filter 0.4s ease';
     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
 
-    // контейнер для надписей
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;pointer-events:none;overflow:hidden;';
-    document.body.appendChild(overlay);
+    // надпись GOAT вверху по диагонали
+    const goat = document.createElement('div');
+    goat.textContent = 'GOAT';
+    goat.style.cssText = `
+      position: fixed;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%) rotate(-8deg) scale(0.6);
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(3rem, 14vw, 9rem);
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #c8ff00;
+      text-shadow:
+        0 0 30px rgba(200, 255, 0, 0.8),
+        0 0 60px rgba(200, 255, 0, 0.4);
+      z-index: 999999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    `;
+    document.body.appendChild(goat);
 
-    // 15 надписей GOAT
-    const total = 15;
-    for (let i = 0; i < total; i++) {
-      const goat = document.createElement('div');
-      goat.textContent = 'GOAT';
-      goat.style.cssText = `
-        position:absolute;
-        top:${Math.random() * 90}%;
-        left:${Math.random() * 90}%;
-        font-size:${1.5 + Math.random() * 3}rem;
-        font-weight:900;
-        font-family:'Unbounded',sans-serif;
-        color:#c8ff00;
-        letter-spacing:3px;
-        transform:scale(0) rotate(${Math.random() * 40 - 20}deg);
-        transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s;
-        text-shadow:0 0 30px rgba(200,255,0,0.6);
-        opacity:0;
-      `;
-      overlay.appendChild(goat);
+    // плавное появление с «вылетом»
+    requestAnimationFrame(() => {
+      goat.style.opacity = '1';
+      goat.style.transform = 'translateX(-50%) rotate(-8deg) scale(1)';
+    });
 
-      setTimeout(() => {
-        goat.style.transform = `scale(1) rotate(${Math.random() * 40 - 20}deg)`;
-        goat.style.opacity = '1';
-      }, i * 60);
-    }
-
-    // убрать всё через 2.5 секунды
+    // убрать через 2 секунды
     setTimeout(() => {
       document.body.style.filter = '';
-      overlay.style.transition = 'opacity 0.5s';
-      overlay.style.opacity = '0';
-      setTimeout(() => overlay.remove(), 500);
-    }, 2500);
+      goat.style.opacity = '0';
+      goat.style.transform = 'translateX(-50%) rotate(-8deg) scale(1.1)';
+      setTimeout(() => goat.remove(), 500);
+    }, 2000);
   }
 })();
 </script>
