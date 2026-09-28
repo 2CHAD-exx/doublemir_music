@@ -432,8 +432,6 @@ document.querySelectorAll('.track').forEach(track => {
   const logo = document.querySelector('.logo');
   if (!logo) return;
 
-  const messages = ['LEGEND', 'GOAT'];
-
   let clicks = 0;
   let timer = null;
 
@@ -452,33 +450,49 @@ document.querySelectorAll('.track').forEach(track => {
   });
 
   function triggerEasterEgg() {
+    // инверсия сайта
     document.body.style.transition = 'filter 0.4s ease';
     document.body.style.filter = 'invert(1) hue-rotate(180deg)';
 
-    const msg = document.createElement('div');
-    msg.textContent = messages[Math.floor(Math.random() * messages.length)];
-    msg.style.position = 'fixed';
-    msg.style.top = '50%';
-    msg.style.left = '50%';
-    msg.style.transform = 'translate(-50%, -50%)';
-    msg.style.background = '#c8ff00';
-    msg.style.color = '#0a0a0a';
-    msg.style.padding = '30px 60px';
-    msg.style.borderRadius = '16px';
-    msg.style.fontSize = '2.5rem';
-    msg.style.fontWeight = '900';
-    msg.style.letterSpacing = '5px';
-    msg.style.zIndex = '999999';
-    msg.style.fontFamily = "'Unbounded', sans-serif";
-    msg.style.textTransform = 'uppercase';
-    msg.style.pointerEvents = 'none';
-    msg.style.boxShadow = '0 20px 60px rgba(0,0,0,0.5)';
-    document.body.appendChild(msg);
+    // контейнер для надписей
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;pointer-events:none;overflow:hidden;';
+    document.body.appendChild(overlay);
 
+    // 15 надписей GOAT
+    const total = 15;
+    for (let i = 0; i < total; i++) {
+      const goat = document.createElement('div');
+      goat.textContent = 'GOAT';
+      goat.style.cssText = `
+        position:absolute;
+        top:${Math.random() * 90}%;
+        left:${Math.random() * 90}%;
+        font-size:${1.5 + Math.random() * 3}rem;
+        font-weight:900;
+        font-family:'Unbounded',sans-serif;
+        color:#c8ff00;
+        letter-spacing:3px;
+        transform:scale(0) rotate(${Math.random() * 40 - 20}deg);
+        transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s;
+        text-shadow:0 0 30px rgba(200,255,0,0.6);
+        opacity:0;
+      `;
+      overlay.appendChild(goat);
+
+      setTimeout(() => {
+        goat.style.transform = `scale(1) rotate(${Math.random() * 40 - 20}deg)`;
+        goat.style.opacity = '1';
+      }, i * 60);
+    }
+
+    // убрать всё через 2.5 секунды
     setTimeout(() => {
       document.body.style.filter = '';
-      msg.remove();
-    }, 1500);
+      overlay.style.transition = 'opacity 0.5s';
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 500);
+    }, 2500);
   }
 })();
 </script>
