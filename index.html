@@ -462,42 +462,62 @@ document.querySelectorAll('.track').forEach(track => {
       const rect = bigTitle.getBoundingClientRect();
       const isMobile = window.innerWidth < 700;
 
-      // центр надписи
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
 
-      // прямоугольная зона вокруг надписи — где могут появляться GOAT
-      const zoneW = isMobile ? 320 : 700;    // ширина зоны
-      const zoneH = isMobile ? 260 : 420;    // высота зоны
+      // размеры зоны
+      const zoneW = isMobile ? 340 : 800;
+      const zoneH = isMobile ? 300 : 480;
       const halfW = zoneW / 2;
       const halfH = zoneH / 2;
 
+      // размер надписи (примерный, в пикселях)
+      const fontSize = isMobile ? 24 : 42;   // 1.6rem и 2.8rem примерно
+      const itemW = fontSize * 3.2;           // ширина надписи GOAT
+      const itemH = fontSize * 1.4;           // высота
+      const pad = 12;                          // отступ между надписями
+
       const total = 12;
+      const placed = [];
 
       const overlay = document.createElement('div');
       overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
       document.body.appendChild(overlay);
 
-      // создаём случайные позиции
-      const positions = [];
-      for (let i = 0; i < total; i++) {
-        // случайная точка в прямоугольнике
+      // ищем позиции без пересечений
+      let attempts = 0;
+      while (placed.length < total && attempts < 500) {
+        attempts++;
+
         const x = cx - halfW + Math.random() * zoneW;
         const y = cy - halfH + Math.random() * zoneH;
-        positions.push({ x, y });
+
+        // проверяем коллизию с уже размещёнными
+        let collision = false;
+        for (const p of placed) {
+          if (Math.abs(x - p.x) < itemW + pad &&
+              Math.abs(y - p.y) < itemH + pad) {
+            collision = true;
+            break;
+          }
+        }
+
+        if (!collision) {
+          placed.push({ x, y });
+        }
       }
 
       // перемешиваем порядок появления
-      positions.sort(() => Math.random() - 0.5);
+      placed.sort(() => Math.random() - 0.5);
 
-      positions.forEach((pos, i) => {
+      placed.forEach((pos, i) => {
         const el = document.createElement('div');
         el.textContent = 'GOAT';
         el.style.position = 'fixed';
         el.style.left = pos.x + 'px';
         el.style.top = pos.y + 'px';
         el.style.fontFamily = "'Unbounded', sans-serif";
-        el.style.fontSize = isMobile ? '1.6rem' : '2.8rem';    // ← крупнее
+        el.style.fontSize = fontSize + 'px';
         el.style.fontWeight = '900';
         el.style.letterSpacing = '4px';
         el.style.color = '#c8ff00';
