@@ -312,15 +312,16 @@
  <button id="toTop" aria-label="Наверх">↑</button>
 <script>
   const players = document.querySelectorAll('audio');
-  players.forEach(player => {
-    player.addEventListener('play', () => {
-      players.forEach(other => {
-        if (other !== player) {
-          other.pause();
-        }
-      });
+players.forEach(player => {
+  player.addEventListener('play', () => {
+    players.forEach(other => {
+      if (other !== player) {
+        other.pause();
+        other.currentTime = 0;   // ← сброс в начало
+      }
     });
   });
+});
 </script>
 <script>
   const revealElements = document.querySelectorAll('.reveal');
@@ -405,7 +406,7 @@ document.querySelectorAll('.track').forEach(track => {
     track.classList.remove('playing');
   });
 });
-/* ---------- СЧЁТЧИК ПРОСЛУШИВАНИЙ ---------- */
+/* ---------- СЧЁТЧИК ПРОСЛУШИВАНИЙ (только полное прослушивание) ---------- */
 document.querySelectorAll('.track').forEach(track => {
   const audio = track.querySelector('audio');
   const counter = track.querySelector('.track-plays');
@@ -413,12 +414,14 @@ document.querySelectorAll('.track').forEach(track => {
 
   const key = 'plays_' + counter.dataset.playsFor;
 
+  // показать сохранённое число при загрузке
   const saved = localStorage.getItem(key);
   if (saved) {
     counter.textContent = 'Вы слушали ' + saved + ' раз';
   }
 
-  audio.addEventListener('play', () => {
+  // +1 только когда трек дослушан до конца
+  audio.addEventListener('ended', () => {
     const current = parseInt(localStorage.getItem(key) || '0', 10) + 1;
     localStorage.setItem(key, current);
     counter.textContent = 'Вы слушали ' + current + ' раз';
