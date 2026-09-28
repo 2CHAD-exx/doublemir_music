@@ -940,34 +940,21 @@ html {
   align-items: center;
   gap: 10px;
   margin: 0 0 24px;
-  padding: 14px 28px;
+  padding: 14px 32px;
   background: transparent;
-  border: 2px solid #c8ff00;
-  color: #c8ff00;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #f2f2f2;
   border-radius: 999px;
-  font-family: 'Unbounded', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: background 0.25s, color 0.25s, transform 0.2s;
 }
 
 .random-btn:hover {
-  background: #c8ff00;
+  background: #fff;
   color: #0a0a0a;
   transform: translateY(-2px);
-}
-
-.random-btn:active {
-  transform: translateY(0);
-}
-
-@media (max-width: 600px) {
-  .random-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
-    font-size: 0.85rem;
-  }
 }
