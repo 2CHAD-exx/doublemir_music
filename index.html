@@ -456,56 +456,65 @@ document.querySelectorAll('.track').forEach(track => {
     const bigTitle = document.querySelector('.animated-title');
     if (!bigTitle) return;
 
-    const rect = bigTitle.getBoundingClientRect();
-    const isMobile = window.innerWidth < 700;
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
+    // прокручиваем к главному экрану, чтобы надпись была видна
+    bigTitle.scrollIntoView({ behavior: 'instant', block: 'center' });
 
-    // 10 надписей разлетаются по кругу от центра надписи
-    const total = 10;
-    const radiusX = isMobile ? 130 : 260;   // по горизонтали
-    const radiusY = isMobile ? 70  : 130;   // по вертикали
+    // ждём кадр, чтобы прокрутка применилась
+    setTimeout(() => {
+      const rect = bigTitle.getBoundingClientRect();
+      const isMobile = window.innerWidth < 700;
 
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
-    document.body.appendChild(overlay);
+      // центр надписи на экране
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
 
-    for (let i = 0; i < total; i++) {
-      const angle = (i / total) * Math.PI * 2;
-      const x = cx + Math.cos(angle) * radiusX;
-      const y = cy + Math.sin(angle) * radiusY;
+      // расстояние от центра до краёв — шире, чем у надписи
+      const rx = isMobile ? 140 : 320;
+      const ry = isMobile ? 90  : 160;
 
-      const el = document.createElement('div');
-      el.textContent = 'GOAT';
-      el.style.position = 'fixed';
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
-      el.style.fontFamily = "'Unbounded', sans-serif";
-      el.style.fontSize = isMobile ? '0.85rem' : '1.4rem';
-      el.style.fontWeight = '900';
-      el.style.letterSpacing = '2px';
-      el.style.color = '#c8ff00';
-      el.style.textShadow = '0 0 20px rgba(200,255,0,0.9), 0 0 40px rgba(200,255,0,0.5)';
-      el.style.opacity = '0';
-      el.style.transform = 'translate(-50%, -50%) scale(0.3) rotate(' + (Math.random() * 30 - 15) + 'deg)';
-      el.style.transition = 'opacity 0.4s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
-      el.style.whiteSpace = 'nowrap';
-      el.style.pointerEvents = 'none';
+      const total = 10;
 
-      overlay.appendChild(el);
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden;';
+      document.body.appendChild(overlay);
+
+      for (let i = 0; i < total; i++) {
+        const angle = (i / total) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + Math.cos(angle) * rx;
+        const y = cy + Math.sin(angle) * ry;
+
+        const el = document.createElement('div');
+        el.textContent = 'GOAT';
+        el.style.position = 'fixed';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        el.style.fontFamily = "'Unbounded', sans-serif";
+        el.style.fontSize = isMobile ? '1rem' : '1.6rem';
+        el.style.fontWeight = '900';
+        el.style.letterSpacing = '2px';
+        el.style.color = '#c8ff00';
+        el.style.textShadow = '0 0 20px rgba(200,255,0,0.9), 0 0 40px rgba(200,255,0,0.5)';
+        el.style.opacity = '0';
+        el.style.transform = 'translate(-50%, -50%) scale(0.3) rotate(' + (Math.random() * 30 - 15) + 'deg)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
+        el.style.whiteSpace = 'nowrap';
+        el.style.pointerEvents = 'none';
+
+        overlay.appendChild(el);
+
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 30 - 15) + 'deg)';
+        }, i * 80);
+      }
 
       setTimeout(() => {
-        el.style.opacity = '1';
-        el.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 30 - 15) + 'deg)';
-      }, i * 80);
-    }
-
-    setTimeout(() => {
-      document.body.style.filter = '';
-      overlay.style.transition = 'opacity 0.5s';
-      overlay.style.opacity = '0';
-      setTimeout(() => overlay.remove(), 500);
-    }, 2500);
+        document.body.style.filter = '';
+        overlay.style.transition = 'opacity 0.5s';
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 500);
+      }, 2500);
+    }, 50);
   }
 })();
 </script>
