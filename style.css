@@ -1250,3 +1250,9 @@ html {
     font-size: 0.9rem;
   }
 }
+/* АВАРИЙНЫЙ ПОКАЗ — если reveal не сработал */
+.section.reveal,
+.section {
+  opacity: 1 !important;
+  transform: none !important;
+}
