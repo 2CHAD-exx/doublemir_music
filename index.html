@@ -595,41 +595,99 @@ document.querySelectorAll('.track').forEach(track => {
     }, 50);
   }
 })();
-/* ---------- СЛУЧАЙНЫЙ ТРЕК ---------- */
-const randomBtn = document.getElementById('randomTrack');
-if (randomBtn) {
-  randomBtn.addEventListener('click', () => {
-    const tracks = document.querySelectorAll('.track');
-    if (!tracks.length) return;
+/* ---------- АВТОПЕРЕКЛЮЧЕНИЕ + SHUFFLE БЕЗ ПОВТОРОВ ---------- */
+let shuffleMode = false;
+let shuffleQueue = [];
+let switching = false;
 
-    // выбираем случайный
-    const random = tracks[Math.floor(Math.random() * tracks.length)];
+function getAllTracks() {
+  return Array.from(document.querySelectorAll('.track'));
+}
 
-    // скроллим к нему
-    random.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // пауза всех остальных
-    document.querySelectorAll('audio').forEach(a => {
+function playTrackAuto(track) {
+  if (!track) return;
+  switching = true;
+  track.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.querySelectorAll('audio').forEach(a => {
+    if (a !== track.querySelector('audio')) {
       a.pause();
       a.currentTime = 0;
-    });
+    }
+  });
+  setTimeout(() => {
+    const audio = track.querySelector('audio');
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
+    switching = false;
+  }, 500);
+}
 
-    // запускаем через 600мс (пока идёт скролл)
-    setTimeout(() => {
-      const audio = random.querySelector('audio');
-      if (audio) {
-        audio.play().catch(() => {});
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+getAllTracks().forEach(track => {
+  const audio = track.querySelector('audio');
+  if (!audio) return;
+  audio.addEventListener('ended', () => {
+    if (switching) return;
+    const tracks = getAllTracks();
+    if (shuffleMode) {
+      let next = shuffleQueue.shift();
+      if (!next) {
+        const others = tracks.filter(t => t !== track);
+        shuffleQueue = shuffleArray(others);
+        next = shuffleQueue.shift();
       }
+      playTrackAuto(next || tracks[0]);
+    } else {
+      const idx = tracks.indexOf(track);
+      const next = tracks[idx + 1] || tracks[0];
+      playTrackAuto(next);
+    }
+  });
+});
 
-      // подсветить трек на секунду
-      random.style.transition = 'box-shadow 0.4s, background 0.4s';
-      random.style.boxShadow = '0 0 40px rgba(200,255,0,0.4)';
-      setTimeout(() => {
-        random.style.boxShadow = '';
-      }, 1500);
-    }, 600);
+const randomBtn = document.getElementById('randomTrack');
+if (randomBtn) {
+  const newBtn = randomBtn.cloneNode(true);
+  randomBtn.parentNode.replaceChild(newBtn, randomBtn);
+  newBtn.addEventListener('click', () => {
+    shuffleMode = true;
+    const tracks = getAllTracks();
+    if (!tracks.length) return;
+    const first = tracks[Math.floor(Math.random() * tracks.length)];
+    const others = tracks.filter(t => t !== first);
+    shuffleQueue = shuffleArray(others);
+    playTrackAuto(first);
   });
 }
+
+getAllTracks().forEach(track => {
+  const audio = track.querySelector('audio');
+  if (!audio) return;
+  audio.addEventListener('play', () => {
+    if (!switching) {
+      shuffleMode = false;
+      shuffleQueue = [];
+    }
+  });
+  audio.addEventListener('mousedown', () => {
+    shuffleMode = false;
+    shuffleQueue = [];
+  });
+  audio.addEventListener('touchstart', () => {
+    shuffleMode = false;
+    shuffleQueue = [];
+  });
+});
 /* ---------- ПОДЕЛИТЬСЯ ТРЕКОМ ---------- */
 function shareTrack(trackName) {
   // карта id для каждого трека
