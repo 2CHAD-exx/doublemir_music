@@ -624,8 +624,9 @@ function shareTrack(trackName) {
   const text = 'Слушай «' + trackName + '» — DOUBLEMIR INFO';
   const fullText = text + '\n' + url;
 
-  // 1. системное окно «Поделиться» (телефон)
-  if (navigator.share) {
+   // 1. системное окно «Поделиться» — только на телефоне
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile && navigator.share) {
     navigator.share({
       title: 'DOUBLEMIR INFO — ' + trackName,
       text: text,
@@ -633,7 +634,6 @@ function shareTrack(trackName) {
     }).catch(() => {});
     return;
   }
-
   // 2. копирование через clipboard API (современные браузеры)
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(fullText).then(() => {
