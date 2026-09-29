@@ -1029,3 +1029,37 @@ html {
   vertical-align: top !important;
   white-space: nowrap !important;
 }
+/* ---------- КНОПКА «СЛУЧАЙНЫЙ ТРЕК» — АКЦЕНТ ---------- */
+.random-btn {
+  border-color: rgba(200, 255, 0, 0.5);
+  color: #c8ff00;
+  box-shadow:
+    0 0 12px rgba(200, 255, 0, 0.2),
+    inset 0 0 12px rgba(200, 255, 0, 0.05);
+  animation: randomPulse 2.5s ease-in-out infinite;
+}
+
+.random-btn:hover {
+  background: #c8ff00;
+  color: #0a0a0a;
+  border-color: #c8ff00;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 30px rgba(200, 255, 0, 0.6),
+    0 0 60px rgba(200, 255, 0, 0.3);
+  animation: none;
+}
+
+@keyframes randomPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 12px rgba(200, 255, 0, 0.2),
+      inset 0 0 12px rgba(200, 255, 0, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(200, 255, 0, 0.4),
+      0 0 45px rgba(200, 255, 0, 0.15),
+      inset 0 0 18px rgba(200, 255, 0, 0.1);
+  }
+}
