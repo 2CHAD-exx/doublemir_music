@@ -1053,3 +1053,10 @@ html {
   opacity: 1;
   border-color: #fff;
 }
+/* ---------- ВЫРАВНИВАНИЕ КНОПОК ---------- */
+.download-btn,
+.share-btn {
+  min-width: 170px;
+  text-align: center;
+  justify-content: center;
+}
