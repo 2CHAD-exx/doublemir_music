@@ -387,15 +387,26 @@ function ageConfirm() {
   document.getElementById('ageGate').classList.add('hide');
   document.body.style.overflow = '';
 
-  // если в ссылке есть якорь — прокручиваем к нему
+  // прокрутка к якорю — несколько попыток
   if (window.location.hash) {
-    const target = document.querySelector(window.location.hash);
-    if (target) {
-      setTimeout(() => {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 200);
-    }
+    scrollToHash();
   }
+}
+
+/* ---------- Прокрутка к якорю с несколькими попытками ---------- */
+function scrollToHash() {
+  if (!window.location.hash) return;
+  const hash = window.location.hash;
+
+  // 5 попыток с разной задержкой — чтобы точно сработало
+  [100, 300, 600, 1000, 1500].forEach(delay => {
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, delay);
+  });
 }
 
 function ageDeny() {
