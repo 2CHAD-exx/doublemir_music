@@ -361,9 +361,22 @@ players.forEach(player => {
   const gate = document.getElementById('ageGate');
   if (!gate) return;
 
-  if (localStorage.getItem('ageConfirmed') === 'yes') {
+  const confirmed = localStorage.getItem('ageConfirmed') === 'yes';
+
+  if (confirmed) {
     gate.classList.add('hide');
     document.body.style.overflow = '';
+
+    // если в ссылке якорь — прокрутить к нему
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        // небольшая задержка — чтобы страница успела отрисоваться
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    }
   } else {
     document.body.style.overflow = 'hidden';
   }
@@ -373,6 +386,16 @@ function ageConfirm() {
   localStorage.setItem('ageConfirmed', 'yes');
   document.getElementById('ageGate').classList.add('hide');
   document.body.style.overflow = '';
+
+  // если в ссылке есть якорь — прокручиваем к нему
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+  }
 }
 
 function ageDeny() {
