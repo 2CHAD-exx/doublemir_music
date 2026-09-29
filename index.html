@@ -598,7 +598,7 @@ if (randomBtn) {
 }
 /* ---------- ПОДЕЛИТЬСЯ ТРЕКОМ ---------- */
 function shareTrack(trackName) {
-  // превращаем название в id (латиница, без пробелов)
+  // карта id для каждого трека
   const anchorMap = {
     'Наебал': 'naebal',
     'Пантера': 'pantera',
@@ -608,7 +608,7 @@ function shareTrack(trackName) {
     'YMIP feat. DOUBLEMIR — only SEX': 'only-sex',
     'W double, DOUBLEMIR — clean girl': 'clean-girl',
     'DOUBLEMIR, PLOHOYTARASIK — PROJECT X': 'project-x',
-    'DOUBLEMIR feat. stepanenko — Взгляды под луной': 'vzglady',
+    'DOUBLEMIR feat. stepanenko — Взгляды под луной': 'vzglyady',
     'Лабубу': 'labubu',
     'Жизнь моя': 'zhizn-moya',
     'Будешь со мной': 'budes-so-mnoy',
@@ -621,10 +621,10 @@ function shareTrack(trackName) {
   const anchor = anchorMap[trackName] || '';
   const baseUrl = window.location.origin + window.location.pathname;
   const url = anchor ? baseUrl + '#' + anchor : baseUrl;
-
   const text = 'Слушай «' + trackName + '» — DOUBLEMIR INFO';
   const fullText = text + '\n' + url;
 
+  // 1. системное окно «Поделиться» (телефон)
   if (navigator.share) {
     navigator.share({
       title: 'DOUBLEMIR INFO — ' + trackName,
@@ -634,19 +634,61 @@ function shareTrack(trackName) {
     return;
   }
 
-  navigator.clipboard.writeText(fullText).then(() => {
-    const btn = event.target.closest('.share-btn');
-    if (!btn) return;
-    const original = btn.textContent;
-    btn.textContent = '✓ Скопировано';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.classList.remove('copied');
-    }, 1800);
-  }).catch(() => {
-    prompt('Скопируйте ссылку:', fullText);
+  // 2. копирование через clipboard API (современные браузеры)
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(fullText).then(() => {
+      showCopied(trackName);
+    }).catch(() => {
+      fallbackCopy(fullText, trackName);
+    });
+    return;
+  }
+
+  // 3. старый fallback — через textarea
+  fallbackCopy(fullText, trackName);
+}
+
+/* ---------- Показать «✓ Скопировано» на кнопке ---------- */
+function showCopied(trackName) {
+  // ищем кнопку по имени трека
+  const buttons = document.querySelectorAll('.share-btn');
+  buttons.forEach(btn => {
+    if (btn.textContent.includes('Поделиться') &&
+        btn.getAttribute('onclick').includes(trackName)) {
+      const original = btn.textContent;
+      btn.textContent = '✓ Скопировано';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    }
   });
+}
+
+/* ---------- Fallback: копирование через textarea ---------- */
+function fallbackCopy(text, trackName) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  ta.style.top = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+
+  try {
+    const ok = document.execCommand('copy');
+    if (ok) {
+      showCopied(trackName);
+    } else {
+      prompt('Скопируйте ссылку:', text);
+    }
+  } catch (e) {
+    prompt('Скопируйте ссылку:', text);
+  }
+
+  document.body.removeChild(ta);
 }
 </script>
 </body>
