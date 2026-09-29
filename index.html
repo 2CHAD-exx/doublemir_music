@@ -633,6 +633,7 @@ function shuffleArray(arr) {
   return a;
 }
 
+/* автопереключение при окончании трека */
 getAllTracks().forEach(track => {
   const audio = track.querySelector('audio');
   if (!audio) return;
@@ -655,6 +656,7 @@ getAllTracks().forEach(track => {
   });
 });
 
+/* клик по кнопке «Случайный трек» — включает shuffle */
 const randomBtn = document.getElementById('randomTrack');
 if (randomBtn) {
   const newBtn = randomBtn.cloneNode(true);
@@ -670,15 +672,11 @@ if (randomBtn) {
   });
 }
 
+/* выключаем shuffle ТОЛЬКО при ручном клике пользователя */
 getAllTracks().forEach(track => {
   const audio = track.querySelector('audio');
   if (!audio) return;
-  audio.addEventListener('play', () => {
-    if (!switching) {
-      shuffleMode = false;
-      shuffleQueue = [];
-    }
-  });
+
   audio.addEventListener('mousedown', () => {
     shuffleMode = false;
     shuffleQueue = [];
