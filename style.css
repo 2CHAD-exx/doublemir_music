@@ -954,6 +954,11 @@ html {
 }
 
 .random-btn:hover {
+  background: #fff;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 600px) {
   .random-btn {
     width: 100%;
@@ -961,10 +966,6 @@ html {
     padding: 12px 20px;
     font-size: 0.85rem;
   }
-}
-  background: #fff;
-  color: #0a0a0a;
-  transform: translateY(-2px);
 }
 /* ---------- КНОПКИ «СКАЧАТЬ» И «ПОДЕЛИТЬСЯ» ---------- */
 .download-btn,
@@ -1017,4 +1018,14 @@ html {
   box-shadow:
     0 0 25px rgba(200, 255, 0, 0.6),
     0 0 50px rgba(200, 255, 0, 0.3);
+}
+/* ---------- ФИКС: КНОПКИ В ОДНУ СТРОКУ ---------- */
+.track .download-btn,
+.track .share-btn {
+  display: inline-block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 10px 8px 0 0 !important;
+  vertical-align: top !important;
+  white-space: nowrap !important;
 }
