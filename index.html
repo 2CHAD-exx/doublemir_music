@@ -624,9 +624,10 @@ function shareTrack(trackName) {
   const text = 'Слушай «' + trackName + '» — DOUBLEMIR INFO';
   const fullText = text + '\n' + url;
 
-   // 1. системное окно «Поделиться» — только на телефоне
+  // 1. системное окно «Поделиться» — только на телефонах, НЕ в Яндекс Браузере
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if (isMobile && navigator.share) {
+  const isYandex = /YaBrowser/i.test(navigator.userAgent);
+  if (isMobile && !isYandex && navigator.share) {
     navigator.share({
       title: 'DOUBLEMIR INFO — ' + trackName,
       text: text,
