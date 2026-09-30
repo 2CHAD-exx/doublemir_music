@@ -381,6 +381,32 @@
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
+  /* ---------- ПРОКРУТКА К ЯКОРЮ ИЗ ССЫЛКИ ---------- */
+(function () {
+  if (!window.location.hash) return;
+  const hash = window.location.hash;
+  
+  // ждём, пока страница отрисуется
+  function scrollToAnchor() {
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // подсветка трека
+      target.style.transition = 'box-shadow 0.4s, background 0.4s';
+      target.style.boxShadow = '0 0 40px rgba(200, 255, 0, 0.5)';
+      target.style.background = '#1f1f1f';
+      setTimeout(() => {
+        target.style.boxShadow = '';
+        target.style.background = '';
+      }, 2500);
+    }
+  }
+  
+  // несколько попыток — чтобы точно сработало
+  [300, 600, 1000, 1500].forEach(delay => {
+    setTimeout(scrollToAnchor, delay);
+  });
+})(); 
 
   const revealElements = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
