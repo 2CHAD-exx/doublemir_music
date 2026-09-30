@@ -604,18 +604,17 @@
     });
   }
 
-  getAllTracks().forEach(track => {
-    const audio = track.querySelector('audio');
-    if (!audio) return;
-    audio.addEventListener('mousedown', () => {
-      shuffleMode = false;
-      shuffleQueue = [];
-    });
-    audio.addEventListener('touchstart', () => {
-      shuffleMode = false;
-      shuffleQueue = [];
-    });
+  /* Выключаем shuffle ТОЛЬКО при клике на название трека */
+getAllTracks().forEach(track => {
+  const title = track.querySelector('.track-title');
+  if (!title) return;
+  title.addEventListener('click', () => {
+    shuffleMode = false;
+    shuffleQueue = [];
+    const btn = document.getElementById('randomTrack');
+    if (btn) btn.classList.remove('active');
   });
+});
 
   function shareTrack(trackName) {
     const anchorMap = {
