@@ -16,6 +16,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- ПАСХАЛКА: ВЗЛОМ САЙТА -->
+<div class="hack-overlay" id="hackOverlay">
+  <div class="hack-banner" id="hackBanner">ACCESS GRANTED</div>
+  <pre class="hack-code" id="hackCode"></pre>
+</div>
 <div class="scroll-progress"></div>
 
 <!-- ВОЗРАСТНОЕ ПРЕДУПРЕЖДЕНИЕ -->
@@ -92,7 +97,7 @@
   <div class="about">
     <img src="img/1000x1000.jpg" alt="DOUBLEMIR — фото артиста">
     <div class="about-text">
-      <p><strong>DOUBLEMIR</strong> (настоящее имя — Тимур Владимирович Краснов; род. 24 июля 2008 года) — российский рэп-исполнитель.</p>
+      <p><strong>DOUBLEMIR</strong> (настоящее имя — Тимур Владимирович Краснов; род. 24 июля 2008 года) — российский хип-хоп-исполнитель.</p>
       <p>Тимур Краснов родился 24 июля 2008 года. Свою музыкальную карьеру он начал под псевдонимом DOUBLEMIR. Свои релизы артист выпускает на основных стриминговых площадках, включая Яндекс Музыку, VK Музыку, Spotify, Apple Music, Kion Музыку и Deezer.</p>
       <p>13 февраля 2026 года состоялся релиз дебютного альбома «17», выполненного в жанре хип-хоп/рэп. Название пластинки отсылает к возрасту исполнителя на момент выхода релиза. В записи альбома приняли участие такие артисты, как nebedolaga, SAKFAER, f1ckit, de sent Bennett, vasyapalkiin, TOMMYTEMA, DJ ЦЕПЬ, Падший ангел и weexymep.</p>
       <p>3 июля 2026 года DOUBLEMIR выпустил сольный мини-альбом (EP) «Время покажет!!!», состоящий из пяти треков: «Девочка мечты» (Intro), «Мне похуй», «Pull up», «Егермейстер» и «Доля правды».</p>
@@ -580,6 +585,123 @@
     }
     document.body.removeChild(ta);
   }
+/* ---------- ПАСХАЛКА: ВЗЛОМ САЙТА ---------- */
+(function () {
+  const title = document.querySelector('.animated-title');
+  if (!title) return;
+
+  const overlay = document.getElementById('hackOverlay');
+  const banner = document.getElementById('hackBanner');
+  const codeBox = document.getElementById('hackCode');
+
+  let clicks = 0;
+  let timer = null;
+  let active = false;
+
+  // случайные строки «кода» для показа
+  const symbols = '!@#$%^&*()_+-=[]{}|;:<>?/0123456789ABCDEFdoublemirАБВГДЕЖЗИКЛМНОПРСТУФ';
+  const hackLines = [
+    '> INITIALIZING EXPLOIT...',
+    '> BYPASSING FIREWALL [OK]',
+    '> INJECTING PAYLOAD... 74%',
+    '> ROOT ACCESS GRANTED',
+    '> DECRYPTING FILES...',
+    '> SOURCE: DOUBLEMIR.INFO',
+    '> SYSTEM VULNERABLE :(',
+    '> UPLOADING VIRUS...',
+    '> CONNECTION STABLE',
+    '> HACKING COMPLETE [100%]',
+    '> WELCOME, DOUBLEMIR',
+    '> 0x18+ — ACCESS LEVEL: GOD'
+  ];
+
+  title.addEventListener('click', () => {
+    if (active) return;
+
+    clicks++;
+    clearTimeout(timer);
+    timer = setTimeout(() => { clicks = 0; }, 2000);
+
+    if (clicks === 5) {
+      clicks = 0;
+      clearTimeout(timer);
+      startHack();
+    }
+  });
+
+  function startHack() {
+    active = true;
+
+    // 1. Тряска + плашка
+    document.body.classList.add('hacking');
+    if (overlay) overlay.classList.add('show');
+    if (banner) banner.textContent = 'ACCESS GRANTED';
+
+    // 2. Поток «кода» в реальном времени
+    let lineIndex = 0;
+    const codeInterval = setInterval(() => {
+      if (!codeBox) return;
+      // случайная строка из готовых
+      const line = hackLines[lineIndex % hackLines.length];
+      lineIndex++;
+
+      // генерируем случайные символы
+      let random = '';
+      for (let i = 0; i < 60; i++) {
+        random += symbols[Math.floor(Math.random() * symbols.length)];
+      }
+
+      codeBox.textContent += line + '\n' + random + '\n';
+
+      // ограничиваем длину, чтобы не лагало
+      const lines = codeBox.textContent.split('\n');
+      if (lines.length > 30) {
+        codeBox.textContent = lines.slice(-25).join('\n');
+      }
+    }, 60);
+
+    // 3. Перепрошивка букв DOUBLEMIR → D0UBLEM1R
+    const spans = title.querySelectorAll('span');
+    const originalLetters = [];
+    spans.forEach((span, i) => {
+      originalLetters[i] = span.textContent;
+    });
+
+    const hackTimer = setInterval(() => {
+      spans.forEach((span, i) => {
+        // 30% шанс заменить букву на цифру/символ
+        if (Math.random() < 0.3) {
+          const digits = ['0', '1', '2', '3', '@', '#', '$', '%'];
+          span.textContent = digits[Math.floor(Math.random() * digits.length)];
+        } else {
+          span.textContent = originalLetters[i];
+        }
+      });
+    }, 100);
+
+    // 4. Через секунду меняем плашку
+    setTimeout(() => {
+      if (banner) banner.textContent = 'WELCOME TO DOUBLEMIR';
+    }, 1000);
+
+    // 5. Через 3 секунды всё восстанавливаем
+    setTimeout(() => {
+      clearInterval(codeInterval);
+      clearInterval(hackTimer);
+
+      document.body.classList.remove('hacking');
+      if (overlay) overlay.classList.remove('show');
+      if (codeBox) codeBox.textContent = '';
+
+      // буквы возвращаем в исходное
+      spans.forEach((span, i) => {
+        span.textContent = originalLetters[i];
+      });
+
+      active = false;
+    }, 3000);
+  }
+})();
 </script>
 </body>
 </html>
