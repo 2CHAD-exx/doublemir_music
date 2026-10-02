@@ -1270,3 +1270,18 @@ html {
     inset 0 0 15px rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px) !important;
 }
+/* ---------- ЗАПРЕТ ВЫДЕЛЕНИЯ НА ГЛАВНОМ ЭКРАНЕ ---------- */
+.hero,
+.hero-content,
+.hero h1,
+.hero p,
+.hero .btn,
+.animated-title,
+.animated-title span {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
