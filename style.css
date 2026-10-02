@@ -1270,14 +1270,24 @@ html {
     inset 0 0 15px rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px) !important;
 }
-/* ---------- ЗАПРЕТ ВЫДЕЛЕНИЯ НА ГЛАВНОМ ЭКРАНЕ ---------- */
+/* ---------- ЗАПРЕТ ВЫДЕЛЕНИЯ НА ГЛАВНОМ ЭКРАНЕ И В ШАПКЕ ---------- */
 .hero,
 .hero-content,
 .hero h1,
 .hero p,
 .hero .btn,
 .animated-title,
-.animated-title span {
+.animated-title span,
+/* Бегущая строка */
+.marquee,
+.marquee-track,
+.marquee-track span,
+/* Шапка */
+.nav,
+.nav nav,
+.nav nav a,
+.logo,
+.age-mark-nav {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
