@@ -647,7 +647,7 @@
 
       // генерируем случайные символы
       let random = '';
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 60; i++) {
         random += symbols[Math.floor(Math.random() * symbols.length)];
       }
 
@@ -655,7 +655,7 @@
 
       // ограничиваем длину, чтобы не лагало
       const lines = codeBox.textContent.split('\n');
-      if (lines.length > 15) {
+      if (lines.length > 30) {
         codeBox.textContent = lines.slice(-25).join('\n');
       }
     }, 60);
