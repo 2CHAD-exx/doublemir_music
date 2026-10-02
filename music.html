@@ -589,20 +589,21 @@
     });
   });
 
-  const randomBtn = document.getElementById('randomTrack');
-  if (randomBtn) {
-    const newBtn = randomBtn.cloneNode(true);
-    randomBtn.parentNode.replaceChild(newBtn, randomBtn);
-    newBtn.addEventListener('click', () => {
-      shuffleMode = true;
-      const tracks = getAllTracks();
-      if (!tracks.length) return;
-      const first = tracks[Math.floor(Math.random() * tracks.length)];
-      const others = tracks.filter(t => t !== first);
-      shuffleQueue = shuffleArray(others);
-      playTrackAuto(first);
-    });
-  }
+const randomBtn = document.getElementById('randomTrack');
+if (randomBtn) {
+  const newBtn = randomBtn.cloneNode(true);
+  randomBtn.parentNode.replaceChild(newBtn, randomBtn);
+  newBtn.addEventListener('click', () => {
+    shuffleMode = true;
+    newBtn.classList.add('active');
+    const tracks = getAllTracks();
+    if (!tracks.length) return;
+    const first = tracks[Math.floor(Math.random() * tracks.length)];
+    const others = tracks.filter(t => t !== first);
+    shuffleQueue = shuffleArray(others);
+    playTrackAuto(first);
+  });
+}
 /* Выключаем shuffle ТОЛЬКО при клике на название трека */
 getAllTracks().forEach(track => {
   const title = track.querySelector('.track-title');
