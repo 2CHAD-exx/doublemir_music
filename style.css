@@ -1256,13 +1256,24 @@ html {
   opacity: 1 !important;
   transform: none !important;
 }
-/* Активная кнопка shuffle */
+/* ---------- АКТИВНАЯ КНОПКА SHUFFLE ---------- */
 .random-btn.active {
   background: #c8ff00;
   color: #0a0a0a;
   border-color: #c8ff00;
   animation: none;
   box-shadow:
-    0 0 30px rgba(200, 255, 0, 0.6),
-    0 0 60px rgba(200, 255, 0, 0.3);
+    0 0 30px rgba(200, 255, 0, 0.7),
+    0 0 60px rgba(200, 255, 0, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+.random-btn.active:hover {
+  background: #c8ff00;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 40px rgba(200, 255, 0, 0.9),
+    0 0 80px rgba(200, 255, 0, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
 }
